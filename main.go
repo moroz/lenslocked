@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 )
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
@@ -38,7 +39,10 @@ func main() {
 	r.Get("/", homeHandler)
 	r.Get("/contact", contactHandler)
 	r.Get("/faq", faqHandler)
-	r.Get("/hello/{name}", helloWorldHandler)
+	r.Group(func(r chi.Router) {
+		r.Use(middleware.Logger)
+		r.Get("/hello/{name}", helloWorldHandler)
+	})
 	r.NotFound(notFoundHandler)
 	fmt.Println("Starting the server on :3000...")
 	http.ListenAndServe(":3000", r)
