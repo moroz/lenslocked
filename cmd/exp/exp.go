@@ -7,6 +7,7 @@ import (
 
 type User struct {
 	Name string
+	Bio  string
 }
 
 func main() {
@@ -17,6 +18,7 @@ func main() {
 
 	user := User{
 		Name: "John Smith",
+		Bio:  `<script>alert('haxored')</script>`,
 	}
 
 	err = t.Execute(os.Stdout, user)
