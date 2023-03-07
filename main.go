@@ -26,7 +26,16 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 
 func contactHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("content-type", "text/html; charset=utf-8")
-	fmt.Fprint(w, "<h1>聯絡我</h1>")
+	tpl, err := template.ParseFiles("templates/contact.gohtml")
+	if err != nil {
+		log.Printf("parsing template: %v", err)
+		http.Error(w, "There was an error parsing the template.", http.StatusInternalServerError)
+		return
+	}
+	err = tpl.Execute(w, nil)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func faqHandler(w http.ResponseWriter, r *http.Request) {
