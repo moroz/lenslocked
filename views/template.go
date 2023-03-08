@@ -25,8 +25,8 @@ func Parse(filepath string) (Template, error) {
 	return handleParseResult(template.ParseFiles(filepath))
 }
 
-func ParseFS(fs fs.FS, pattern string) (Template, error) {
-	return handleParseResult(template.ParseFS(fs, pattern))
+func ParseFS(fs fs.FS, patterns ...string) (Template, error) {
+	return handleParseResult(template.ParseFS(fs, patterns...))
 }
 
 func must(tpl Template, err error) Template {
@@ -40,8 +40,8 @@ func MustParse(filepath string) Template {
 	return must(Parse(filepath))
 }
 
-func MustParseFS(fs fs.FS, pattern string) Template {
-	return must(ParseFS(fs, pattern))
+func MustParseFS(fs fs.FS, patterns ...string) Template {
+	return must(ParseFS(fs, patterns...))
 }
 
 func (t Template) Execute(w http.ResponseWriter, data interface{}) {
