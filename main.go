@@ -18,11 +18,11 @@ func main() {
 	r := chi.NewRouter()
 
 	r.Get("/", controllers.StaticHandler(
-		views.MustParseFS(templates.FS, "home.gohtml")))
+		views.MustParseFS(templates.FS, "layout.gohtml", "home.gohtml")))
 	r.Get("/contact", controllers.StaticHandler(
-		views.MustParseFS(templates.FS, "contact.gohtml")))
+		views.MustParseFS(templates.FS, "layout.gohtml", "contact.gohtml")))
 	r.Get("/faq", controllers.FAQ(
-		views.MustParseFS(templates.FS, "faq.gohtml")))
+		views.MustParseFS(templates.FS, "layout.gohtml", "faq.gohtml")))
 	r.NotFound(notFoundHandler)
 	fmt.Println("Starting the server on :3000...")
 	http.ListenAndServe(":3000", r)
