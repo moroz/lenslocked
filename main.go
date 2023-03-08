@@ -23,6 +23,8 @@ func main() {
 		views.MustParseFS(templates.FS, "layout.gohtml", "contact.gohtml")))
 	r.Get("/faq", controllers.FAQ(
 		views.MustParseFS(templates.FS, "layout.gohtml", "faq.gohtml")))
+	r.Get("/sign-up", controllers.StaticHandler(
+		views.MustParseFS(templates.FS, "layout.gohtml", "signup.gohtml")))
 	r.NotFound(notFoundHandler)
 	fmt.Println("Starting the server on :3000...")
 	http.ListenAndServe(":3000", r)

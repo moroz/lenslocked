@@ -1,4 +1,5 @@
-$header-height: 60px;
+$header-height: 3.75rem;
+$footer-height: 3.75rem;
 
 html {
   font-size: 100%;
@@ -48,9 +49,33 @@ header.page-header {
 
 footer {
   text-align: center;
-  height: 60px;
+  height: $footer-height;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+.input-group {
+  margin-bottom: .5em;
+
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: .25em;
+  }
+
+  input {
+    width: 100%;
+    height: 2rem;
+  }
+}
+
+button[type="submit"] {
+  background-color: blue;
+  border: 0;
+  font: inherit;
+  height: 40px;
+  padding: 0 1em;
+  margin-top: .5em;
 }
