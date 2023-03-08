@@ -21,7 +21,7 @@ func main() {
 		views.MustParseFS(templates.FS, "home.gohtml")))
 	r.Get("/contact", controllers.StaticHandler(
 		views.MustParseFS(templates.FS, "contact.gohtml")))
-	r.Get("/faq", controllers.StaticHandler(
+	r.Get("/faq", controllers.FAQ(
 		views.MustParseFS(templates.FS, "faq.gohtml")))
 	r.NotFound(notFoundHandler)
 	fmt.Println("Starting the server on :3000...")

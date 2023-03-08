@@ -1,3 +1,5 @@
 <h1>FAQ</h1>
-<p>Sample question</p>
-<p>Sample answer</p>
+{{range .}}
+  <p>{{.Question}}</p>
+  <p>{{.Answer}}</p>
+{{end}}
