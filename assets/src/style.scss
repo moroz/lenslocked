@@ -1,5 +1,14 @@
 $header-height: 3.75rem;
-$footer-height: 3.75rem;
+$footer-height: 5.75rem;
+$primary: #16a085;
+$body-bg: #f6f6f6;
+$secondary: #2c3e50;
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
 
 html {
   font-size: 100%;
@@ -8,7 +17,8 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,6 +27,11 @@ body {
 main {
   flex: 1;
   padding: 1.5em;
+  background: $body-bg;
+
+  h2:first-child {
+    margin-top: 0;
+  }
 }
 
 a {
@@ -24,13 +39,13 @@ a {
 }
 
 header.page-header {
-  background: blue;
+  background: $primary;
   height: $header-height;
   display: flex;
-  align-items: center;
   justify-content: space-between;
   padding: 0 1rem;
   color: white;
+  align-items: center;
 
   h1 {
     margin: 0;
@@ -38,6 +53,7 @@ header.page-header {
 
   nav {
     display: flex;
+    align-items: center;
     gap: 1em;
 
     a {
@@ -54,28 +70,56 @@ footer {
   align-items: center;
   justify-content: center;
   text-align: center;
+  background: $secondary;
+  color: white;
 }
 
 .input-group {
-  margin-bottom: .5em;
+  margin-bottom: 0.85em;
 
   label {
     font-weight: bold;
     display: block;
-    margin-bottom: .25em;
+    margin-bottom: 0.25em;
   }
 
   input {
     width: 100%;
-    height: 2rem;
+    height: 2.25rem;
   }
 }
 
 button[type="submit"] {
-  background-color: blue;
+  background-color: $primary;
   border: 0;
   font: inherit;
   height: 40px;
   padding: 0 1em;
-  margin-top: .5em;
+  margin-top: 0.5em;
+  color: white;
+  display: inline-block;
+  font-weight: 600;
+}
+
+.card {
+  padding: 1.25rem;
+  background: white;
+  display: block;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+.sign-up {
+  max-width: 28rem;
+
+  h3 {
+    font-weight: bold;
+    margin-top: 0;
+    text-align: center;
+  }
+
+  button {
+    width: 100%;
+    height: 2.75rem;
+  }
 }

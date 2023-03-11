@@ -1,12 +1,13 @@
 {{define "page"}}
-  <form action="/users" method="post">
+  <form action="/users" method="post" class="card sign-up">
+    <h3>Start sharing your photos today!</h3>
     <div class="input-group">
-      <label>Email Address</label>
-      <input />
+      <label for="email">Email Address</label>
+      <input name="email" id="email" type="email" required autocomplete="email" />
     </div>
     <div class="input-group">
-      <label>Password</label>
-      <input />
+      <label for="password">Password</label>
+      <input name="password" type="password" required />
     </div>
     <div>
       <button type="submit">Sign up</button>
