@@ -1,9 +1,16 @@
 {{define "page"}}
-  <form action="/users" method="post" class="card sign-up">
-    <h3>Start sharing your photos today!</h3>
+<section class="card sign-up">
+  <h3>Start sharing your photos today!</h3>
+  <form action="/users" method="post">
     <div class="input-group">
       <label for="email">Email Address</label>
-      <input name="email" id="email" type="email" required autocomplete="email" />
+      <input
+        name="email"
+        id="email"
+        type="email"
+        required
+        autocomplete="email"
+      />
     </div>
     <div class="input-group">
       <label for="password">Password</label>
@@ -13,4 +20,9 @@
       <button type="submit">Sign up</button>
     </div>
   </form>
-{{end}}
+  <footer>
+    <p>Already have an account? <a href="/signin">Sign in</a></p>
+    <p><a href="/reset-pw">Forgot your password?</a></p>
+  </footer>
+</section>
+{{ end }}

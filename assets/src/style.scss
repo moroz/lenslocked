@@ -3,6 +3,7 @@ $footer-height: 5.75rem;
 $primary: #16a085;
 $body-bg: #f6f6f6;
 $secondary: #2c3e50;
+$link: #2980b9;
 
 *,
 *::after,
@@ -36,6 +37,7 @@ main {
 
 a {
   text-decoration: none;
+  color: $link;
 }
 
 header.page-header {
@@ -63,7 +65,7 @@ header.page-header {
   }
 }
 
-footer {
+footer.footer {
   text-align: center;
   height: $footer-height;
   display: flex;
@@ -121,5 +123,11 @@ button[type="submit"] {
   button {
     width: 100%;
     height: 2.75rem;
+  }
+
+  footer {
+    p {
+      margin-bottom: 0;
+    }
   }
 }
