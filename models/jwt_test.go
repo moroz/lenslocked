@@ -20,7 +20,7 @@ func TestIssueTokenForUser(t *testing.T) {
 		t.Errorf("Expected non-empty string")
 	}
 
-	id := models.DecodeAccessTokenClaims(token)
+	id := models.DecodeSubjectFromAccessToken(token)
 	if id != user.ID {
 		t.Errorf("Expected JWT %s to decode to original user ID, got: %q", token, id)
 	}

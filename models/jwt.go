@@ -22,7 +22,7 @@ func IssueTokenForUser(user *User) (string, error) {
 	return token.SignedString(TOKEN_SIGNER)
 }
 
-func DecodeAccessTokenClaims(tokenString string) int {
+func DecodeSubjectFromAccessToken(tokenString string) int {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return TOKEN_SIGNER, nil
 	})
@@ -40,4 +40,8 @@ func DecodeAccessTokenClaims(tokenString string) int {
 		return id
 	}
 	return 0
+}
+
+func AuthenticateUserByAccessToken(token string) *User {
+	panic("unimplemented")
 }
