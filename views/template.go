@@ -1,6 +1,7 @@
 package views
 
 import (
+	"errors"
 	"fmt"
 	"html/template"
 	"io/fs"
@@ -16,10 +17,9 @@ type Template struct {
 
 func ParseFS(fs fs.FS, patterns ...string) (Template, error) {
 	tpl := template.New(patterns[0])
-	// Placeholder implementation so that parsing does not panic
 	tpl = tpl.Funcs(template.FuncMap{
-		"csrfField": func() template.HTML {
-			return ""
+		"csrfField": func() error {
+			return errors.New("csrfField function not implemented!")
 		},
 	})
 	tpl, err := tpl.ParseFS(fs, patterns...)
