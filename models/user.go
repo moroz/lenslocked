@@ -2,6 +2,7 @@ package models
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -16,6 +17,11 @@ type User struct {
 
 type UserService struct {
 	DB *sql.DB
+}
+
+func comparePassword(hash, password string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
 }
 
 func (us *UserService) Create(email, password string) (*User, error) {
@@ -37,4 +43,18 @@ func (us *UserService) Create(email, password string) (*User, error) {
 		return nil, fmt.Errorf("create user: %w", err)
 	}
 	return &user, nil
+}
+
+func (us *UserService) Authenticate(email, password string) (*User, error) {
+	user := User{}
+	row := us.DB.QueryRow(`select id, email, password_hash from users where email=$1`, email)
+	err := row.Scan(&user.ID, &user.Email, &user.PasswordHash)
+	if err != nil {
+		return nil, fmt.Errorf("authenticate: %w", err)
+	}
+	if comparePassword(user.PasswordHash, password) {
+		return &user, nil
+	} else {
+		return nil, errors.New("authenticate: invalid password")
+	}
 }

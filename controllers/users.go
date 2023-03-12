@@ -29,3 +29,15 @@ func (u Users) Create(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Fprintf(w, "User created: %+v", user)
 }
+
+func (u Users) ProcessSignIn(w http.ResponseWriter, r *http.Request) {
+	email := r.FormValue("email")
+	password := r.FormValue("password")
+	user, err := u.UserService.Authenticate(email, password)
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "Invalid email/password combination", http.StatusUnprocessableEntity)
+		return
+	}
+	fmt.Fprintf(w, "User authenticated: %+v", user)
+}
