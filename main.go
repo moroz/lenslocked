@@ -6,6 +6,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/moroz/lenslocked/controllers"
+	"github.com/moroz/lenslocked/models"
 	"github.com/moroz/lenslocked/templates"
 	"github.com/moroz/lenslocked/views"
 )
@@ -24,8 +25,16 @@ func main() {
 	r.Get("/faq", controllers.FAQ(
 		views.MustParseFS(templates.FS, "layout.gohtml", "faq.gohtml")))
 
+	db, err := models.Connect()
+	if err != nil {
+		panic(err)
+	}
 	var usersC controllers.Users
+
 	usersC.Templates.New = views.MustParseFS(templates.FS, "layout.gohtml", "signup.gohtml")
+	usersC.UserService = &models.UserService{
+		DB: db,
+	}
 	r.Get("/sign-up", usersC.New)
 	r.Post("/users", usersC.Create)
 	r.NotFound(notFoundHandler)
