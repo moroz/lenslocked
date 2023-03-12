@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <!-- if development -->
-  <script type="module" src="http://localhost:5173/@vite/client"></script>
-  <script type="module" src="http://localhost:5173/src/main.ts"></script>
-</head>
-<body>
-  <header class="page-header">
-    <nav>
-      <h1>Lenslocked</h1>
-      <a href="/">Home</a>
-      <a href="/contact">Contact</a>
-      <a href="/faq">FAQ</a>
-    </nav>
-    <nav>
-      <a href="#">Sign in</a>
-      <a href="/sign-up">Sign up</a>
-    </nav>
-  </header>
-  <main>
-    {{ template "page" . }}
-  </main>
-  <footer>
-    'Tis a footer.
-  </footer>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- if development -->
+    <script type="module" src="http://localhost:5173/@vite/client"></script>
+    <script type="module" src="http://localhost:5173/src/main.ts"></script>
+  </head>
+  <body>
+    <header class="page-header">
+      <nav>
+        <h1>Lenslocked</h1>
+        <a href="/">Home</a>
+        <a href="/contact">Contact</a>
+        <a href="/faq">FAQ</a>
+      </nav>
+      <nav>
+        <a href="/sign-in">Sign in</a>
+        <a href="/sign-up">Sign up</a>
+      </nav>
+    </header>
+    <main>
+      {{ template "page" . }}
+    </main>
+    <footer>'Tis a footer.</footer>
+  </body>
 </html>

@@ -2,6 +2,7 @@
 <section class="card sign-in">
   <h3>Welcome back!</h3>
   <form action="/sessions" method="post">
+    {{ csrfField }}
     <div class="input-group">
       <label for="email">Email address</label>
       <input

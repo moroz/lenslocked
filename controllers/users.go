@@ -9,13 +9,18 @@ import (
 
 type Users struct {
 	Templates struct {
-		New Template
+		New    Template
+		SignIn Template
 	}
 	UserService *models.UserService
 }
 
 func (u Users) New(w http.ResponseWriter, r *http.Request) {
-	u.Templates.New.Execute(w, nil)
+	u.Templates.New.Execute(w, r, nil)
+}
+
+func (u Users) SignIn(w http.ResponseWriter, r *http.Request) {
+	u.Templates.SignIn.Execute(w, r, nil)
 }
 
 func (u Users) Create(w http.ResponseWriter, r *http.Request) {

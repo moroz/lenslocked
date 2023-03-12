@@ -2,6 +2,7 @@
 <section class="card sign-up">
   <h3>Start sharing your photos today!</h3>
   <form action="/users" method="post">
+    {{ csrfField }}
     <div class="input-group">
       <label for="email">Email Address</label>
       <input

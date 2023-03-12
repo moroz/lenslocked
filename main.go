@@ -35,11 +35,12 @@ func main() {
 	var usersC controllers.Users
 
 	usersC.Templates.New = views.MustParseFS(templates.FS, "layout.gohtml", "signup.gohtml")
+	usersC.Templates.SignIn = views.MustParseFS(templates.FS, "layout.gohtml", "signin.gohtml")
 	usersC.UserService = &models.UserService{
 		DB: db,
 	}
 	r.Get("/sign-up", usersC.New)
-	r.Get("/sign-in", controllers.StaticHandler(views.MustParseFS(templates.FS, "layout.gohtml", "signin.gohtml")))
+	r.Get("/sign-in", usersC.SignIn)
 	r.Post("/sessions", usersC.ProcessSignIn)
 	r.Post("/users", usersC.Create)
 	r.NotFound(notFoundHandler)
