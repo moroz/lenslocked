@@ -36,6 +36,7 @@ func main() {
 		DB: db,
 	}
 	r.Get("/sign-up", usersC.New)
+	r.Get("/sign-in", controllers.StaticHandler(views.MustParseFS(templates.FS, "layout.gohtml", "signin.gohtml")))
 	r.Post("/users", usersC.Create)
 	r.NotFound(notFoundHandler)
 	fmt.Println("Starting the server on :3000...")

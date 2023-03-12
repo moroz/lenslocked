@@ -1,13 +1,13 @@
 {{define "page"}}
-<section class="card sign-up">
-  <h3>Start sharing your photos today!</h3>
-  <form action="/users" method="post">
+<section class="card sign-in">
+  <h3>Welcome back!</h3>
+  <form action="/sessions" method="post">
     <div class="input-group">
-      <label for="email">Email Address</label>
+      <label for="email">Email address</label>
       <input
+        type="text"
         name="email"
         id="email"
-        type="email"
         required
         autocomplete="email"
       />
@@ -15,18 +15,16 @@
     <div class="input-group">
       <label for="password">Password</label>
       <input
-        name="password"
         type="password"
-        required
-        autocomplete="new-password"
+        autocomplete="current-password"
+        name="password"
+        id="password"
       />
     </div>
-    <div>
-      <button type="submit">Sign up</button>
-    </div>
+    <div><button type="submit">Sign in</button></div>
   </form>
   <footer>
-    <p>Already have an account? <a href="/sign-in">Sign in</a></p>
+    <p>Need an account? <a href="/sign-up">Sign in</a></p>
     <p><a href="/reset-pw">Forgot your password?</a></p>
   </footer>
 </section>
