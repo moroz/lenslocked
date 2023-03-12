@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/gorilla/csrf"
 	"github.com/moroz/lenslocked/controllers"
 	"github.com/moroz/lenslocked/models"
 	"github.com/moroz/lenslocked/templates"
@@ -17,7 +18,9 @@ func notFoundHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	r := chi.NewRouter()
+	csrfMiddleware := csrf.Protect(CSRF_SECRET)
 
+	r.Use(csrfMiddleware)
 	r.Get("/", controllers.StaticHandler(
 		views.MustParseFS(templates.FS, "layout.gohtml", "home.gohtml")))
 	r.Get("/contact", controllers.StaticHandler(
@@ -25,7 +28,7 @@ func main() {
 	r.Get("/faq", controllers.FAQ(
 		views.MustParseFS(templates.FS, "layout.gohtml", "faq.gohtml")))
 
-	db, err := models.Connect()
+	db, err := models.Connect(DATABASE_URL)
 	if err != nil {
 		panic(err)
 	}
