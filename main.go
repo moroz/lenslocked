@@ -43,6 +43,12 @@ func main() {
 	r.Get("/sign-in", usersC.SignIn)
 	r.Post("/sessions", usersC.ProcessSignIn)
 	r.Post("/users", usersC.Create)
+
+	r.Group(func(r chi.Router) {
+		r.Use(controllers.AuthenticateUserMiddleware(db, COOKIE_KEY))
+		r.Use(controllers.RestrictAccess)
+		r.Get("/users/me", usersC.Profile)
+	})
 	r.NotFound(notFoundHandler)
 	fmt.Println("Starting the server on :3000...")
 	http.ListenAndServe(":3000", r)

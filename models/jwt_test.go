@@ -7,12 +7,8 @@ import (
 )
 
 func TestIssueTokenForUser(t *testing.T) {
-	user := &models.User{
-		ID:           4,
-		Email:        "user@example.com",
-		PasswordHash: "test",
-	}
-	token, err := models.IssueTokenForUser(user)
+	id := 2137
+	token, err := models.IssueTokenForUserID(id)
 	if err != nil {
 		t.Errorf("Error: %q", err)
 	}
@@ -20,8 +16,8 @@ func TestIssueTokenForUser(t *testing.T) {
 		t.Errorf("Expected non-empty string")
 	}
 
-	id := models.DecodeSubjectFromAccessToken(token)
-	if id != user.ID {
+	actual := models.DecodeSubjectFromAccessToken(token)
+	if id != actual {
 		t.Errorf("Expected JWT %s to decode to original user ID, got: %q", token, id)
 	}
 }

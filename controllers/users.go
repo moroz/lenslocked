@@ -7,12 +7,28 @@ import (
 	"github.com/moroz/lenslocked/models"
 )
 
+const COOKIE_KEY = "_lenslocked_session"
+
 type Users struct {
 	Templates struct {
 		New    Template
 		SignIn Template
 	}
 	UserService *models.UserService
+}
+
+func signUserIn(w http.ResponseWriter, cookieKey string, user *models.User) {
+	if user == nil {
+		panic("Attempted to sign in with nil user")
+	}
+	token, _ := models.IssueTokenForUserID(user.ID)
+	cookie := http.Cookie{
+		Name:     cookieKey,
+		Value:    token,
+		Path:     "/",
+		HttpOnly: true,
+	}
+	http.SetCookie(w, &cookie)
 }
 
 func (u Users) New(w http.ResponseWriter, r *http.Request) {
@@ -32,7 +48,8 @@ func (u Users) Create(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Something went wrong.", http.StatusInternalServerError)
 		return
 	}
-	fmt.Fprintf(w, "User created: %+v", user)
+	signUserIn(w, COOKIE_KEY, user)
+	http.Redirect(w, r, "/users/me", http.StatusFound)
 }
 
 func (u Users) ProcessSignIn(w http.ResponseWriter, r *http.Request) {
@@ -44,5 +61,11 @@ func (u Users) ProcessSignIn(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid email/password combination", http.StatusUnprocessableEntity)
 		return
 	}
-	fmt.Fprintf(w, "User authenticated: %+v", user)
+	signUserIn(w, COOKIE_KEY, user)
+	http.Redirect(w, r, "/users/me", http.StatusFound)
+}
+
+func (u Users) Profile(w http.ResponseWriter, r *http.Request) {
+	user := r.Context().Value("user").(*models.User)
+	fmt.Fprintf(w, "Current user: %s\n", user.Email)
 }

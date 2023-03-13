@@ -13,10 +13,10 @@ const ACCESS_TOKEN_VALIDITY = time.Second * 3600 * 24
 
 var TOKEN_SIGNER = []byte(utils.RequireEnvVar("ACCESS_TOKEN_SIGNER"))
 
-func IssueTokenForUser(user *User) (string, error) {
+func IssueTokenForUserID(id int) (string, error) {
 	claims := &jwt.RegisteredClaims{
 		ExpiresAt: jwt.NewNumericDate(time.Now().Add(ACCESS_TOKEN_VALIDITY)),
-		Subject:   strconv.Itoa(user.ID),
+		Subject:   strconv.Itoa(id),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString(TOKEN_SIGNER)
@@ -40,8 +40,4 @@ func DecodeSubjectFromAccessToken(tokenString string) int {
 		return id
 	}
 	return 0
-}
-
-func AuthenticateUserByAccessToken(token string) *User {
-	panic("unimplemented")
 }
